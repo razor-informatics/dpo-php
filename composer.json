@@ -1,0 +1,27 @@
+{
+    "name": "razor-informatics/dpo-php",
+    "description": "DPO Group Payment gateway wrapper. using api payment option.",
+    "keywords": ["cards processing", "mpesa payment"],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "RazorInformatics\\DPOPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Razor Informatics",
+            "email": "info@razorinformatics.co.ke",
+            "homepage": "https://razorinformatics.co.ke"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "ext-simplexml": "*"
+    }
+}
