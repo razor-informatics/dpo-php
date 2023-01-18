@@ -1,7 +1,5 @@
 <?php
-
 namespace RazorInformatics\DPOPhp;
-
 
 class DPOPhp
 {
@@ -24,10 +22,19 @@ class DPOPhp
 		return new Account($this->endpoint, $this->companyToken);
 	}
 
+	/**
+	 * @return Token
+	 */
 	public function token()
 	{
 		return new Token($this->endpoint, $this->companyToken);
 	}
 
-
+	/**
+	 * @return Payment
+	 */
+	public function payment()
+	{
+		return new Payment($this->endpoint, $this->companyToken);
+	}
 }

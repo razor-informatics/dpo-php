@@ -24,9 +24,8 @@ composer require razor-informatics/dpo-php
 use RazorInformatics\DPOPhp;
 
 $companyToken  = 'YOUR_COMPANY_TOKEN';
-$serviceType = 5525; //SERVICE TYPE
 
-$dpo = new DPOPhp($companyToken,$serviceType);
+$dpo = new DPOPhp($companyToken);
 
 $results = $dpo->account()->balance('USD')
 
@@ -41,13 +40,42 @@ How to verify token
 use RazorInformatics\DPOPhp;
 
 $companyToken  = 'YOUR_COMPANY_TOKEN';
-$serviceType = 5525; //SERVICE TYPE
 
-$dpo = new DPOPhp($companyToken,$serviceType);
+$dpo = new DPOPhp($companyToken);
 
 $transactionToken = 'TRANSACTION_TOKEN_GIVEN';
 
 $results = $$dpo->token()->verify($transactionToken)
+
+print_r($results);
+```
+
+### Card Payment
+
+How to verify token
+
+```php
+use RazorInformatics\DPOPhp;
+
+$companyToken  = 'YOUR_COMPANY_TOKEN';
+$serviceType = 5525; //SERVICE TYPE
+$paymentAmount = 500;
+$reference ="INV-1000";
+$cardNumber = 5436886269848367
+$cardExpiry = 1224;// format My example 0123 i.e. January 2023
+$cardCvv = 123;
+$customerFirstName='John';
+$customerLastName = 'Doe';
+$customerPhone ='';
+$customerEmail = '';
+$currency = 'USD';
+$description = 'Flight booking for 5th January 2032'
+
+$dpo = new DPOPhp($companyToken);
+
+$transactionToken = 'TRANSACTION_TOKEN_GIVEN';
+
+$results = $dpo->payment()->card($reference,$serviceType,$paymentAmount,$cardNumber,$cardExpiry,$cardCvv, $customerFirstName,$customerLastName,$customerPhone,$customerEmail,$currency,$description)
 
 print_r($results);
 ```

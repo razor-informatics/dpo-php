@@ -55,7 +55,7 @@ abstract class Service
 				}
 		}
 		return [
-			'status' => 'error',
+			'status' => Constants::STATUS_ERROR,
 			'message' => $message,
 			'data' => $data
 		];
@@ -102,7 +102,7 @@ abstract class Service
 	protected function success(array $data)
 	{
 		return [
-			'status' => 'success',
+			'status' => Constants::STATUS_SUCCESS,
 			'data' => $data
 		];
 	}
