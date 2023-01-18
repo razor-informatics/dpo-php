@@ -33,32 +33,21 @@ $results = $dpo->account()->balance('USD')
 print_r($results);
 ```
 
-### Card Payment Example
-details of a previous sent message.
+### Verify Transaction using Transaction Token
+
+How to verify token
 
 ```php
-use RazorInformatics\RiNotifierPhp;
+use RazorInformatics\DPOPhp;
 
-$apiKey  = 'YOUR_API_KEY';
-$razor = new RiNotifierPhp\Notifier($apiKey);
+$companyToken  = 'YOUR_COMPANY_TOKEN';
+$serviceType = 5525; //SERVICE TYPE
 
+$dpo = new DPOPhp($companyToken,$serviceType);
 
-$results = $razor->message()->fetchMessage('MESSAGE ID');
+$transactionToken = 'TRANSACTION_TOKEN_GIVEN';
 
-print_r($results);
-```
-### Get Account Details Example
-
-The data available is project details & current account balance
-
-```php
-use RazorInformatics\RiNotifierPhp;
-
-$apiKey  = 'YOUR_API_KEY';
-$razor = new RiNotifierPhp\Notifier($apiKey);
-
-
-$results = $razor->account()->getDetails();
+$results = $$dpo->token()->verify($transactionToken)
 
 print_r($results);
 ```

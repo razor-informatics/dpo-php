@@ -6,13 +6,12 @@ use RuntimeException;
 
 abstract class Service
 {
-	protected $endpoint, $companyToken, $serviceType;
+	protected $endpoint, $companyToken;
 
-	public function __construct(string  $endPoint, string  $companyToken, int $serviceType)
+	public function __construct(string $endPoint, string $companyToken)
 	{
 		$this->companyToken = $companyToken;
-		$this->serviceType = $serviceType;
-		$this->endpoint =  $endPoint;
+		$this->endpoint = $endPoint;
 	}
 
 	/**
@@ -21,12 +20,12 @@ abstract class Service
 	 * @param string $string
 	 * @return string
 	 */
-	private static function _removeHtml(string $string)
+	private function _removeHtml(string $string)
 	{
-		$string =  preg_replace("/<br\W*?\/>/", " ", $string);
-		$string =  preg_replace("/<br>/", " ", $string);
-		$string =  preg_replace("/<hr>/", " ", $string);
-		return  preg_replace("/<hr\W*?\/>/", " ", $string);
+		$string = preg_replace("/<br\W*?\/>/", " ", $string);
+		$string = preg_replace("/<br>/", " ", $string);
+		$string = preg_replace("/<hr>/", " ", $string);
+		return preg_replace("/<hr\W*?\/>/", " ", $string);
 	}
 
 	/**
@@ -92,7 +91,7 @@ abstract class Service
 			throw new RuntimeException('Service error ',$result_code);
 		}
 
-		return json_encode(simplexml_load_string(self::_removeHtml($result)));
+		return json_encode(simplexml_load_string($this->_removeHtml($result)));
 	}
 
 

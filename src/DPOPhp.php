@@ -8,13 +8,26 @@ class DPOPhp
 	protected const DPO_GROUP_URL_LIVE = 'https://secure.3gdirectpay.com';
 	protected const ENDPOINT = self::DPO_GROUP_URL_LIVE . "/API/v6/";
 
-	protected $endpoint, $companyToken, $serviceType;
+	protected $endpoint, $companyToken;
 
-	public function __construct(string  $companyToken, int $serviceType)
+	public function __construct(string $companyToken)
 	{
 		$this->companyToken = $companyToken;
-		$this->serviceType = $serviceType;
-		$this->endpoint =  self::ENDPOINT;
+		$this->endpoint = self::ENDPOINT;
 	}
+
+	/**
+	 * @return Account
+	 */
+	public function account()
+	{
+		return new Account($this->endpoint, $this->companyToken);
+	}
+
+	public function token()
+	{
+		return new Token($this->endpoint, $this->companyToken);
+	}
+
 
 }
