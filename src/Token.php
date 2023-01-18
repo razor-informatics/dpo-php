@@ -1,6 +1,7 @@
 <?php
-
 namespace RazorInformatics\DPOPhp;
+
+use RuntimeException;
 
 class Token extends Service
 {
@@ -14,7 +15,11 @@ class Token extends Service
 	{
 		$xmlData = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<API3G>\r\n  <CompanyToken>" . $this->companyToken . "</CompanyToken>\r\n  <Request>verifyToken</Request>\r\n  <TransactionToken>" . $transToken . "</TransactionToken>\r\n</API3G>";
 
-		$response = json_decode($this->_transact($xmlData), false);
+		try {
+			$response = json_decode($this->_transact($xmlData), false);
+		} catch (RuntimeException $exception) {
+			return $this->error($exception->getCode(), $exception->getMessage());
+		}
 
 		if (isset($response->Result)) {
 			return $this->success(['result' => $response->Result, 'resultExplanation' => $response->ResultExplanation,]);
@@ -60,9 +65,11 @@ class Token extends Service
                 </Service> 
             </Services>
           </API3G>';
-
-		$response = json_decode($this->_transact($postXml), false);
-
+		try {
+			$response = json_decode($this->_transact($postXml), false);
+		} catch (RuntimeException $exception) {
+			return $this->error($exception->getCode(), $exception->getMessage());
+		}
 
 		if (isset($response->Result)) {
 			if ($response->Result === "000") {

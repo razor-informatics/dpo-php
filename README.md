@@ -1,9 +1,15 @@
-# DPO Group PHP SDK
+# DPO Group :tm: PHP SDK
 
->DPO Group Payment gateway wrapper. using api payment option.
+> DPO Group Payment gateway wrapper. using api payment option.
+
+## Development Support
+
+If you need support in development, or you need a development team
+kindly [contact us](https://razorinformatics.co.ke/contact).
 
 ## Documentation
-To get the depth details of the api check [API docs here](https://notifier.razorinformatics.co.ke).
+
+To get the depth details of the api check [API docs here](https://docs.dpopay.com/api/index.html).
 
 ## Install
 
@@ -51,7 +57,6 @@ print_r($results);
 ```
 
 ### Card Payment
-
 How to verify token
 
 ```php
@@ -73,9 +78,36 @@ $description = 'Flight booking for 5th January 2032'
 
 $dpo = new DPOPhp($companyToken);
 
-$transactionToken = 'TRANSACTION_TOKEN_GIVEN';
-
 $results = $dpo->payment()->card($reference,$serviceType,$paymentAmount,$cardNumber,$cardExpiry,$cardCvv, $customerFirstName,$customerLastName,$customerPhone,$customerEmail,$currency,$description)
 
 print_r($results);
 ```
+
+### Mpesa Payment
+
+Make a direct mpesa payment.
+
+```php
+use RazorInformatics\DPOPhp;
+
+$companyToken  = 'YOUR_COMPANY_TOKEN';
+$serviceType = 5525; //SERVICE TYPE
+$paymentAmount = 500;
+$customerFirstName='John';
+$customerLastName = 'Doe';
+$customerPhone = 2547100100100;
+$customerEmail = '';
+$description = 'Flight booking for 5th January 2032'
+
+$dpo = new DPOPhp($companyToken);
+
+$results = $dpo->payment()->chargeMpesa($reference,$serviceType,$paymentAmount, $customerFirstName,$customerLastName,$customerPhone,$customerEmail,$description)
+
+print_r($results);
+```
+
+Verify the transaction code to confirm if payment was successfully.
+
+## License
+
+This package is open-sourced software licensed under the [MIT license](LICENSE.md).

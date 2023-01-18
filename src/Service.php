@@ -43,6 +43,9 @@ abstract class Service
 			case 404:
 				$message = "Data requested was not found";
 				break;
+			case 429:
+				$message = "Too many requests.";
+				break;
 			case 500:
 				$message = "Server Error - Unhandled error happen on our end";
 				break;
@@ -56,6 +59,7 @@ abstract class Service
 		}
 		return [
 			'status' => Constants::STATUS_ERROR,
+			'code' => $statusCode,
 			'message' => $message,
 			'data' => $data
 		];
