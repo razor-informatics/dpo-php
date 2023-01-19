@@ -7,6 +7,8 @@ use RuntimeException;
 class Payment extends Service
 {
 	/**
+	 * Make a direct card charge.
+	 *
 	 * @param string $reference
 	 * @param int $serviceType
 	 * @param float $paymentAmount
@@ -75,6 +77,8 @@ class Payment extends Service
 	}
 
 	/**
+	 * Make an Mpesa Express Payment.
+	 *
 	 * @param string $reference
 	 * @param int $serviceType
 	 * @param float $paymentAmount
@@ -117,6 +121,43 @@ class Payment extends Service
 
 		if (isset($response->Result)) {
 			return $this->error($response->Result, (isset($response->ResultExplanation)) ? $response->ResultExplanation : "Unknown error occurred");
+		}
+
+		return $this->error(400, "Unknown error occurred");
+	}
+
+
+	/**
+	 * Issue a refund.
+	 *
+	 * @param string $transToken
+	 * @param float $amount
+	 * @param string $description
+	 * @return array
+	 */
+	public function refund(string $transToken, float $amount, string $description = 'Refund')
+	{
+		$xmlData = '<?xml version="1.0" encoding="utf-8"?>
+			<API3G>
+			  <Request>refundToken</Request>
+			  <CompanyToken>' . $this->companyToken . '</CompanyToken>
+			  <TransactionToken>' . $transToken . '</TransactionToken>
+			  <refundAmount>' . $amount . '</refundAmount>
+			  <refundDetails>' . $description . '</refundDetails>
+			</API3G>';
+
+		try {
+			$response = json_decode($this->_transact($xmlData), false);
+		} catch (RuntimeException $exception) {
+			return $this->error($exception->getCode(), $exception->getMessage());
+		}
+
+		if (isset($response->Result)) {
+			if ($response->Result === "000") {
+				return $this->success(['result' => $response->Result, 'resultExplanation' => $response->ResultExplanation]);
+			}
+
+			return $this->error($response->Result, $response->ResultExplanation);
 		}
 
 		return $this->error(400, "Unknown error occurred");

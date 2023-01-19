@@ -1,6 +1,8 @@
-# DPO Group :tm: PHP SDK
+# DPO Group :tm: Payment API PHP SDK
 
-> DPO Group Payment gateway wrapper. using api payment option.
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
+> DPO Group Payment gateway wrapper. using api payment option Easily use with API without web or redirects
 
 ## Development Support
 
@@ -51,13 +53,14 @@ $dpo = new DPOPhp($companyToken);
 
 $transactionToken = 'TRANSACTION_TOKEN_GIVEN';
 
-$results = $$dpo->token()->verify($transactionToken)
+$results = $dpo->token()->verify($transactionToken)
 
 print_r($results);
 ```
 
 ### Card Payment
-How to verify token
+
+make a direct card payment.
 
 ```php
 use RazorInformatics\DPOPhp;
@@ -85,13 +88,15 @@ print_r($results);
 
 ### Mpesa Payment
 
-Make a direct mpesa payment.
+Make a direct mpesa payment, Currency is in KES (Kenya Shillings). In the results there us the transaction token, use it
+to verfiy payment went through.
 
 ```php
 use RazorInformatics\DPOPhp;
 
 $companyToken  = 'YOUR_COMPANY_TOKEN';
 $serviceType = 5525; //SERVICE TYPE
+$reference ="INV-1000";
 $paymentAmount = 500;
 $customerFirstName='John';
 $customerLastName = 'Doe';
@@ -106,7 +111,7 @@ $results = $dpo->payment()->chargeMpesa($reference,$serviceType,$paymentAmount, 
 print_r($results);
 ```
 
-Verify the transaction code to confirm if payment was successfully.
+Remember to verify the transaction code to confirm if payment was successfully.
 
 ## License
 

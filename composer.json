@@ -1,16 +1,16 @@
 {
-    "name": "razor-informatics/dpo-php",
-    "description": "DPO Group Payment gateway PHP SDK. using api payment option.",
-    "keywords": [
-        "cards processing",
-        "mpesa payment"
-    ],
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "RazorInformatics\\DPOPhp\\": "src/"
-        }
+  "name": "razor-informatics/dpo-php",
+  "description": "DPO Group Payment gateway PHP SDK. using api payment option. Easily use with API without web or redirects",
+  "keywords": [
+    "cards processing",
+    "mpesa payment"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "RazorInformatics\\DPOPhp\\": "src/"
+    }
     },
     "authors": [
         {
